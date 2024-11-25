@@ -9,6 +9,10 @@ export default {
       colors: {
         "dg-blue": "hsl(219, 9%, 45%)",
       },
+      boxShadow: {
+        'boxCart': 'rgba(0, 0, 0, 0.15) 0rem 1rem 2rem;',
+        'boxBtn': '1px 1rem 1.5rem rgba(0, 0, 0, 0.13)',
+      },
     },
   },
   plugins: [],
