@@ -14,16 +14,16 @@ function App() {
   const [rotate, setRotate] = useState(false);
   // const [price, setPrice] = useState(null);
 
-  useEffect(() => {
-    if (selectProductAmg !== 1) {
-      const imgElement = document.getElementById("imgFull");
-      imgElement.classList.add("active");
-    }
-  }, [selectProductAmg]);
+  // useEffect(() => {
+  //   if (selectProductAmg !== 1) {
+  //     const imgElement = document.getElementById("imgFull");
+  //     imgElement.classList.add("active");
+  //   }
+  // }, [selectProductAmg]);
 
   return (
     <div className="contain h-screen flex flex-col  items-center gap-8">
-      {/* {addToCart ? number={count} : undefined} */}
+    
       <Header number={cardCount || ""} showModalProduct={cardCount} />
       <div className="main flex flex-row px-40 py-16 gap-28">
         <div className="imgProduct w-1/2 flex flex-col gap-8 max-w-[25rem]">
@@ -40,10 +40,7 @@ function App() {
               onClick={() => {
                 setSelectProductAmg(1);
                 setSelectImage(images[0]);
-                // setTimeout(() => {
-                //   const imgElement = document.getElementById('imgFull');
-                //   imgElement.classList.remove("active");
-                // }, 300);
+               
               }}
               className="cursor-pointer"
             >
@@ -61,14 +58,8 @@ function App() {
               onClick={() => {
                 setSelectProductAmg(2);
                 setSelectImage(images[1]);
-                setRotate(true);
-                // setTimeout(() => {
-                //   const imgElement = document.getElementById('imgFull');
-                //   imgElement.classList.remove("active");
-                // }, 300);
-                // setTimeout(() => {
-                //   setRotate(false);
-                // }, 500);
+                // setRotate(true);
+        
               }}
               className=" cursor-pointer"
             >
@@ -86,10 +77,7 @@ function App() {
               onClick={() => {
                 setSelectProductAmg(3);
                 setSelectImage(images[2]);
-                // setTimeout(() => {
-                //   const imgElement = document.getElementById('imgFull');
-                //   imgElement.classList.remove("active");
-                // }, 300);
+          
               }}
               className="cursor-pointer"
             >
@@ -107,10 +95,7 @@ function App() {
               onClick={() => {
                 setSelectProductAmg(4);
                 setSelectImage(images[3]);
-                // setTimeout(() => {
-                //   const imgElement = document.getElementById('imgFull');
-                //   imgElement.classList.remove("active");
-                // }, 300);
+               
               }}
               className=" cursor-pointer"
             >
@@ -175,9 +160,6 @@ function App() {
               onClick={() => {
                 setCardCount(count);
 
-                // setTimeout(() => {
-                //   setAddToCart(false)
-                // }, 500);
               }}
               className="addToCart whitespace-nowrap w-6/12 flex justify-center items-center gap-2 px-12 py-3 rounded-lg bg-orange-500"
             >

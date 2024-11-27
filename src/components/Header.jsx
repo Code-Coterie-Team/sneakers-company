@@ -1,10 +1,8 @@
 import { useState } from "react"
 
-const Header = ({ number, showModalProduct }) => {
+const Header = ({number}) => {
     const [showModal, setShowModal] = useState(false);
-    const handelMOdal = () => {
-        setShowModal(true);
-    }
+  
     console.log(number,"countHeader");
     return (
 
@@ -40,12 +38,12 @@ const Header = ({ number, showModalProduct }) => {
                     <div className="modalCart shadow-boxCart absolute h-[16rem]  w-[22rem] bg-white rounded-lg top-[3.5rem] right-[-3rem]">
                         <h1 className="border-b-2 py-4 px-7 text-xl font-bold">Cart</h1>
                         <div className="bodyModal p-6 flex flex-col gap-6 h-[75%] justify-center items-center">
-                            <div className={showModalProduct ? 'modalEmpty hidden' : 'modalEmpty '}>
+                            <div className={number ? 'modalEmpty hidden' : 'modalEmpty '}>
 
                                 Your cart is empty
 
                             </div>
-                            <div className={showModalProduct ? 'modalShowProduct flex flex-row items-center gap-3' : 'hidden'}>
+                            <div className={number ? 'modalShowProduct flex flex-row items-center gap-3' : 'hidden'}>
                                 <div className="">
                                     <img className="w-12 h-12 rounded-md" src="src/image/image-product-1.jpg" alt="" />
                                 </div>
@@ -57,14 +55,12 @@ const Header = ({ number, showModalProduct }) => {
                                     </div>
 
                                 </div>
-                                <button onClick={() => {
-                                    showModalProduct = false
-                                }}>
+                                <button >
                                     <img className="w-5 h-6" src="src/image/icon-delete.svg" alt="" />
                                 </button>
 
                             </div>
-                            {showModalProduct ? (
+                            {number ? (
                                 <button onClick={() => {
                                     setShowModal(false)
                                 }} className="bg-orange-500 text-xl shadow-boxBtn text-white w-full rounded-lg py-[1rem]">
