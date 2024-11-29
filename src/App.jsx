@@ -12,6 +12,27 @@ function App() {
   const [selectImage, setSelectImage] = useState(images[0]);
   const [selectProductAmg, setSelectProductAmg] = useState(1);
   const [rotate, setRotate] = useState(false);
+  // const amg01 = useRef(false);
+  // const amg02 = useRef(false);
+  // const amg03 = useRef(false);
+  // const amg04 = useRef(false);
+  // console.log(amg04,"amg04")
+  const imgRefs = useRef([false, false, false, false]); 
+  console.log(imgRefs,"imgrefs")
+  const animationAmg = (index) => {
+    imgRefs.current[index] = !imgRefs.current[index];
+
+    if (imgRefs.current[index]) {
+      const fullamg =document.getElementById("imgFull");
+      fullamg.classList.add("active");
+      
+      setTimeout(() => {
+        fullamg.classList.remove("active");
+        imgRefs.current[index] = false;
+      }, 1000);
+    }
+  }
+
   // const [price, setPrice] = useState(null);
 
   // useEffect(() => {
@@ -23,7 +44,7 @@ function App() {
 
   return (
     <div className="contain h-screen flex flex-col  items-center gap-8">
-    
+   
       <Header number={cardCount || ""} showModalProduct={cardCount} />
       <div className="main flex flex-row px-40 py-16 gap-28">
         <div className="imgProduct w-1/2 flex flex-col gap-8 max-w-[25rem]">
@@ -40,11 +61,11 @@ function App() {
               onClick={() => {
                 setSelectProductAmg(1);
                 setSelectImage(images[0]);
-               
+                animationAmg(0)
               }}
               className="cursor-pointer"
             >
-              <img
+              <img 
                 className={`rounded-lg ${
                   selectProductAmg === 1
                     ? " border-orange-600 border-4 opacity-40 "
@@ -54,11 +75,11 @@ function App() {
                 alt=""
               />
             </div>
-            <div
+            <div 
               onClick={() => {
                 setSelectProductAmg(2);
                 setSelectImage(images[1]);
-                // setRotate(true);
+                animationAmg(1)
         
               }}
               className=" cursor-pointer"
@@ -73,11 +94,11 @@ function App() {
                 alt=""
               />
             </div>
-            <div
+            <div 
               onClick={() => {
                 setSelectProductAmg(3);
                 setSelectImage(images[2]);
-          
+                animationAmg(2)
               }}
               className="cursor-pointer"
             >
@@ -91,11 +112,11 @@ function App() {
                 alt=""
               />
             </div>
-            <div
+            <div 
               onClick={() => {
                 setSelectProductAmg(4);
                 setSelectImage(images[3]);
-               
+                animationAmg(3)
               }}
               className=" cursor-pointer"
             >

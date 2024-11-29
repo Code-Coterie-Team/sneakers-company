@@ -6,7 +6,7 @@ body{
     font-family: "Kumbh Sans", sans-serif;
 }
 .imgFull .active{
-    animation: rotateAnimation 2s ease-in;
+    animation: rotateAnimation 1s ease-in;
 }
 
 @keyframes rotateAnimation {

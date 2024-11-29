@@ -3,7 +3,6 @@ import { useState } from "react"
 const Header = ({number}) => {
     const [showModal, setShowModal] = useState(false);
   
-    console.log(number,"countHeader");
     return (
 
         <div className="flex gap-80 pt-5 justify-between items-center border-solid border-b-2 border-gray-300 pb-8 px-7">
