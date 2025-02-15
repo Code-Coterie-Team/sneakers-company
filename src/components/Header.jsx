@@ -1,22 +1,88 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from 'react-redux'
+import { setTheme } from "../features/themeSlice"
 
-const Header = ({number}) => {
+
+const Header = ({ number }) => {
     const [showModal, setShowModal] = useState(false);
-  
+
+    const [isShowModalToggle, setIsShowModalToggle] = useState(false);
+
+    const { theme } = useSelector((state) => state.theme)
+
+    const toggleTHeme = () => {
+        if (theme === "dark") {
+            dispatch(setTheme("light"))
+        } else {
+            dispatch(setTheme("dark"))
+        }
+    }
+    console.log(theme, "headerThem")
+    const dispatch = useDispatch();
+
+    const handleMouseEnter = () => {
+        setIsShowModalToggle(true);
+    }
+    const handleMouseLeave = () => {
+        setIsShowModalToggle(false);
+    }
+
+    useEffect(() => {
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark")
+        } else {
+            document.documentElement.classList.remove("dark")
+        }
+
+    }, [theme])
     return (
 
-        <div className="flex gap-80 pt-5 justify-between items-center border-solid border-b-2 border-gray-300 pb-8 px-7">
+        <div className="flex dark:bg-black text-dg-blue dark:text-white gap-80 pt-5 justify-between items-center border-solid border-b-2 border-gray-300 pb-8 px-7">
             <div className="flex items-center justify-center gap-16">
                 <div>
                     <img src="src/image/logo.svg" alt="sneakers-text" />
                 </div>
                 <div>
                     <ul className="flex gap-10">
-                        <li className="text-dg-blue"><a className="border-b-4 border-white transition-all hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]" href="#">Collections</a></li>
-                        <li className="text-dg-blue"><a className="border-b-4 border-white transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]" href="#">Men</a></li>
-                        <li className="text-dg-blue"><a className="border-b-4 border-white transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]" href="#">Women</a></li>
-                        <li className="text-dg-blue"><a className="border-b-4 border-white transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]" href="#">About</a></li>
-                        <li className="text-dg-blue"><a className="border-b-4 border-white transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]" href="#">Contact</a></li>
+                        <li className=" ">
+                            <a
+                                className="border-b-4 border-white dark:border-black transition-all hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]"
+                                href="#">
+                                Collections
+                            </a>
+                        </li>
+                        <li
+                            className="">
+                            <a
+                                className="border-b-4 border-white dark:border-black transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]"
+                                href="#">
+                                Men
+                            </a>
+                        </li>
+                        <li
+                            className="">
+                            <a
+                                className="border-b-4 border-white dark:border-black transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]"
+                                href="#">
+                                Women
+                            </a>
+                        </li>
+                        <li
+                            className="">
+                            <a
+                                className="border-b-4 border-white dark:border-black transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]"
+                                href="#">
+                                About
+                            </a>
+                        </li>
+                        <li
+                            className="">
+                            <a
+                                className="border-b-4 border-white dark:border-black transition-all  hover:transition-all delay-75 hover:border-b-4 hover:border-orange-500 hover:pb-[44px]"
+                                href="#">
+                                Contact
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -32,9 +98,31 @@ const Header = ({number}) => {
                     <img className="w-[40px] h-[40px] cursor-pointer text-gray-700" src="src/image/cart01.jpg" alt="cart" />
                 </div>
 
-                <img className="w-[50px] h-[50px] " src="https://nasim67reja.github.io/Ecommerce.github.io/images/image-avatar.png" alt="profile" />
+                <img
+                    className="w-[50px] h-[50px] relative"
+                    src="https://nasim67reja.github.io/Ecommerce.github.io/images/image-avatar.png"
+                    alt="profile"
+                    onMouseEnter={handleMouseEnter}
+                //  onMouseLeave={handleMouseLeave}
+
+                ></img>
+                {isShowModalToggle ? (
+                    <div className="toggleModall absolute bg-gray-50 rounded-lg p-5 top-[3.15rem]">
+                        <button onClick={() => {
+                            // setIsToggled(!isToggled)
+                            toggleTHeme();
+                        }}
+                            className={`px-4 py-2 rounded-lg focus:outline-none ${theme === "light" ? 'bg-gray-300 text-black' : 'bg-blue-500 text-white'
+                                }`}
+                        >
+                            {theme === "light" ? 'OFF' : 'ON'}
+                        </button>
+                    </div>
+                ) : undefined}
+
+
                 {showModal ? (
-                    <div className="modalCart shadow-boxCart absolute h-[16rem]  w-[22rem] bg-white rounded-lg top-[3.5rem] right-[-3rem]">
+                    <div className="modalCart activeModal shadow-boxCart absolute h-[16rem]  w-[22rem] bg-white rounded-lg top-[3.5rem] right-[-3rem]">
                         <h1 className="border-b-2 py-4 px-7 text-xl font-bold">Cart</h1>
                         <div className="bodyModal p-6 flex flex-col gap-6 h-[75%] justify-center items-center">
                             <div className={number ? 'modalEmpty hidden' : 'modalEmpty '}>
