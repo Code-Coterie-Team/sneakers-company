@@ -8,11 +8,22 @@ body{
 .imgFull .active{
     animation: rotateAnimation 1s ease-in;
 }
+ /* .modalCart.activeModal{
+    animation: modalAnimation 5s ease-in;
+border: 2px solid red;
+} */
 
 @keyframes rotateAnimation {
     from { 
         transform: rotate(0deg); 
     } to { 
         transform: rotate(360deg); 
+    }
+}
+@keyframes modalAnimation {
+    from { 
+        width: 0; 
+    } to { 
+        width :16rem; 
     }
 }
