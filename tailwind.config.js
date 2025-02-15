@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "selector",
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -12,6 +13,7 @@ export default {
       boxShadow: {
         'boxCart': 'rgba(0, 0, 0, 0.15) 0rem 1rem 2rem;',
         'boxBtn': '1px 1rem 1.5rem rgba(0, 0, 0, 0.13)',
+        
       },
     },
   },
