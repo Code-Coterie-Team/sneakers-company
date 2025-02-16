@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../features/themeSlice";
-import { ShoppingBasket03 } from "./icons/ShoppingBasket03";
-import { Brightness } from "./icons/Brightness";
-import { HalfMoon } from "./icons/HalfMoon";
-import { Sneakers } from "./icons/Sneakers";
+import { ShoppingBasket03Icon } from "./icons/ShoppingBasket03Icon";
+import { BrightnessIcon } from "./icons/BrightnessIcon";
+import { HalfMoonIcon } from "./icons/HalfMoonIcon";
+import { SneakersIcon } from "./icons/SneakersIcon";
+import { DeleteIcon } from "./icons/DeleteIcon";
+import { setNumber } from "../features/numberSlice";
 
-const Header = ({ number }) => {
+const Header = ({ numberShop }) => {
   const [showModal, setShowModal] = useState(false);
 
+  const number = useSelector((state) => state.number);
+  console.log(number, "header component number");
+
   const { theme } = useSelector((state) => state.theme);
+  const [modalShowProduct, setModalShowProduct] = useState(true);
 
   const toggleTHeme = () => {
     if (theme === "dark") {
@@ -18,7 +24,6 @@ const Header = ({ number }) => {
       dispatch(setTheme("dark"));
     }
   };
-  console.log(theme, "headerThem");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,11 +34,13 @@ const Header = ({ number }) => {
     }
   }, [theme]);
   return (
-    <div className="flex flex-col lg:flex-row lg:gap-80 dark:bg-black text-dg-blue dark:text-white  pt-5 justify-between 
-    items-center border-solid border-b-2 border-gray-300 pb-8 px-7">
+    <div
+      className="flex flex-col lg:flex-row lg:gap-80 dark:bg-black text-dg-blue dark:text-white  pt-5 justify-between 
+    items-center border-solid border-b-2 border-gray-300 pb-8 px-7"
+    >
       <div className="flex items-center justify-center gap-16">
         <div>
-          <Sneakers className="dark:text-gray-50 text-black" />
+          <SneakersIcon className="dark:text-gray-50 text-black" />
         </div>
         <div>
           <ul className="flex gap-10">
@@ -85,7 +92,7 @@ const Header = ({ number }) => {
           onClick={() => toggleTHeme()}
           className="them"
         >
-          {theme === "light" ? <Brightness /> : <HalfMoon />}
+          {theme === "light" ? <BrightnessIcon /> : <HalfMoonIcon />}
         </div>
 
         <div
@@ -94,13 +101,14 @@ const Header = ({ number }) => {
           }}
           className="iconCart relative"
         >
-          {number !== "" && (
-            <span className=" py-[2px] px-[7px] absolute top-[-4px] text-[12px] font-bold text-gray-100 right-[-7px] rounded-full bg-orange-500">
-              {number}
-            </span>
-          )}
+          <span
+            className={`${number === 0 ? "hidden" : ""} py-[2px] px-[7px] absolute top-[-4px] text-[12px] font-bold
+               text-gray-100 right-[-7px] rounded-full bg-orange-500`}
+          >
+            {number}
+          </span>
 
-          <ShoppingBasket03 className=" cursor-pointer text-gray-700" />
+          <ShoppingBasket03Icon className=" cursor-pointer text-gray-700" />
         </div>
 
         <img
@@ -118,40 +126,44 @@ const Header = ({ number }) => {
               <div className={number ? "modalEmpty hidden" : "modalEmpty "}>
                 Your cart is empty
               </div>
-              <div
-                className={
-                  number
-                    ? "modalShowProduct flex flex-row items-center gap-3"
-                    : "hidden"
-                }
-              >
-                <div className="">
-                  <img
-                    className="w-12 h-12 rounded-md"
-                    src="src/image/image-product-1.jpg"
-                    alt=""
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-gray-500">
-                    Fall Limited Edition Sneakers
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-500">{`$125.00 * ${number}`}</span>
-                    <span className="text-gray-600 font-bold">
-                      {" "}
-                      {12500 * number}
-                    </span>
+              {modalShowProduct && (
+                <div
+                  className={
+                    number
+                      ? "modalShowProduct flex flex-row items-center gap-3"
+                      : "hidden"
+                  }
+                >
+                  <div className="">
+                    <img
+                      className="w-12 h-12 rounded-md"
+                      src="/image/image-product-1.jpg"
+                      alt=""
+                    />
                   </div>
+                  <div className="flex flex-col">
+                    <span className="text-gray-500">
+                      Fall Limited Edition Sneakers
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-500">{`$125.00 * ${number}`}</span>
+                      <span className="text-gray-600 font-bold">
+                        {" "}
+                        {12500 * number}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setModalShowProduct(false);
+                      dispatch(setNumber(0));
+                    }}
+                  >
+                    <DeleteIcon />
+                  </button>
                 </div>
-                <button>
-                  <img
-                    className="w-5 h-6"
-                    src="src/image/icon-delete.svg"
-                    alt=""
-                  />
-                </button>
-              </div>
+              )}
+
               {number ? (
                 <button
                   onClick={() => {
